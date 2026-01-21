@@ -5,30 +5,29 @@ import random
 
 # ============ LOVE ANIMATION COMMAND ============
 
-@X1.on(events.NewMessage(incoming=True, pattern=r"\.love"))
-@X2.on(events.NewMessage(incoming=True, pattern=r"\.love"))
-@X3.on(events.NewMessage(incoming=True, pattern=r"\.love"))
-@X4.on(events.NewMessage(incoming=True, pattern=r"\.love"))
-@X5.on(events.NewMessage(incoming=True, pattern=r"\.love"))
-@X6.on(events.NewMessage(incoming=True, pattern=r"\.love"))
-@X7.on(events.NewMessage(incoming=True, pattern=r"\.love"))
-@X8.on(events.NewMessage(incoming=True, pattern=r"\.love"))
-@X9.on(events.NewMessage(incoming=True, pattern=r"\.love"))
-@X10.on(events.NewMessage(incoming=True, pattern=r"\.love"))
-async def love_animation(event):
+async def love_handler(event):
+    """Main handler for .love command"""
     if event.sender_id not in SUDO_USERS:
         return
-    
+
     # Check if replied to someone
     if not event.is_reply:
-        return await event.reply("⚠️ **Kisi ladki ko reply karke use karo!** 💕")
-    
-    await event.delete()
-    
+        await event.reply("⚠️ **Kisi ladki ko reply karke use karo!** 💕")
+        return
+
+    try:
+        await event.delete()
+    except:
+        pass
+
     replied_msg = await event.get_reply_message()
-    user = await event.client.get_entity(replied_msg.sender_id)
-    girl_name = user.first_name
     
+    try:
+        user = await event.client.get_entity(replied_msg.sender_id)
+        girl_name = user.first_name or "Beautiful"
+    except:
+        girl_name = "Beautiful"
+
     # STAGE 1: Heart Beat Animation
     heartbeat = [
         "💗",
@@ -37,125 +36,92 @@ async def love_animation(event):
         "❤️‍🔥❤️‍🔥❤️‍🔥",
         "💖💖💖💖💖",
     ]
-    
+
     msg = await event.respond("💗")
     for frame in heartbeat:
         await asyncio.sleep(0.3)
-        await msg.edit(frame)
-    
+        try:
+            await msg.edit(frame)
+        except:
+            pass
+
     await asyncio.sleep(0.5)
-    
+
     # STAGE 2: Searching for Love
-    await msg.edit("```\n🔍 SEARCHING...\n>>> Looking for someone special...```")
-    await asyncio.sleep(0.6)
-    await msg.edit("```\n🔍 SEARCHING...\n>>> Scanning beautiful souls...\n>>> Processing...```")
-    await asyncio.sleep(0.6)
-    await msg.edit(f"```\n🔍 SEARCHING...\n>>> Perfect match found!\n>>> Target: {girl_name} 💕```")
-    
+    try:
+        await msg.edit("```\n🔍 SEARCHING...\n>>> Looking for someone special...```")
+        await asyncio.sleep(0.6)
+        await msg.edit("```\n🔍 SEARCHING...\n>>> Scanning beautiful souls...\n>>> Processing...```")
+        await asyncio.sleep(0.6)
+        await msg.edit(f"```\n🔍 SEARCHING...\n>>> Perfect match found!\n>>> Target: {girl_name} 💕```")
+    except:
+        pass
+
     await asyncio.sleep(0.7)
-    
+
     # STAGE 3: Loading Her Name
     name_animation = []
     for i in range(1, len(girl_name) + 1):
         name_animation.append(girl_name[:i])
-    
+
     for frame in name_animation:
         await asyncio.sleep(0.15)
-        await msg.edit(f"```\n💕 LOADING...\n\n>>> {frame}_```")
-    
+        try:
+            await msg.edit(f"```\n💕 LOADING...\n\n>>> {frame}_```")
+        except:
+            pass
+
     await asyncio.sleep(0.6)
-    
+
     # STAGE 4: Heart Formation
     heart_frames = [
-        """
-    ♥
-""",
-        """
-   ♥ ♥
-    ♥
-""",
-        """
-  ♥   ♥
- ♥     ♥
-  ♥   ♥
-   ♥ ♥
-    ♥
-""",
-        f"""
-  ❤️   ❤️
- ❤️  {girl_name[:3]}  ❤️
-  ❤️   ❤️
-   ❤️ ❤️
-    ❤️
-""",
+        "♥",
+        "♥ ♥\n♥",
+        "♥   ♥\n♥     ♥\n♥   ♥\n ♥ ♥\n  ♥",
+        f"❤️   ❤️\n❤️  {girl_name[:3]}  ❤️\n❤️   ❤️\n ❤️ ❤️\n  ❤️",
     ]
-    
+
     for frame in heart_frames:
         await asyncio.sleep(0.4)
-        await msg.edit(frame)
-    
+        try:
+            await msg.edit(frame)
+        except:
+            pass
+
     await asyncio.sleep(0.7)
-    
+
     # STAGE 5: Beauty Analysis
-    await msg.edit("```\n📊 ANALYZING BEAUTY...\n\n█░░░░░░░░░ 10%```")
-    await asyncio.sleep(0.3)
-    await msg.edit("```\n📊 ANALYZING BEAUTY...\n\n████░░░░░░ 40%```")
-    await asyncio.sleep(0.3)
-    await msg.edit("```\n📊 ANALYZING BEAUTY...\n\n███████░░░ 70%```")
-    await asyncio.sleep(0.3)
-    await msg.edit("```\n📊 ANALYZING BEAUTY...\n\n██████████ 100%\n\n✨ BREATHTAKING!```")
-    
+    try:
+        await msg.edit("```\n📊 ANALYZING BEAUTY...\n\n█░░░░░░░░░ 10%```")
+        await asyncio.sleep(0.3)
+        await msg.edit("```\n📊 ANALYZING BEAUTY...\n\n████░░░░░░ 40%```")
+        await asyncio.sleep(0.3)
+        await msg.edit("```\n📊 ANALYZING BEAUTY...\n\n███████░░░ 70%```")
+        await asyncio.sleep(0.3)
+        await msg.edit("```\n📊 ANALYZING BEAUTY...\n\n██████████ 100%\n\n✨ BREATHTAKING!```")
+    except:
+        pass
+
     await asyncio.sleep(0.7)
-    
+
     # STAGE 6: Her Stats (Flirty)
     stats_animation = [
-        f"""
-💕 BEAUTY PROFILE
-━━━━━━━━━━━━━━
-Name: {girl_name}
-Smile: LOADING...
-""",
-        f"""
-💕 BEAUTY PROFILE
-━━━━━━━━━━━━━━
-Name: {girl_name}
-Smile: ⭐⭐⭐⭐⭐ Perfect
-Eyes: LOADING...
-""",
-        f"""
-💕 BEAUTY PROFILE
-━━━━━━━━━━━━━━
-Name: {girl_name}
-Smile: ⭐⭐⭐⭐⭐ Perfect
-Eyes: 😍 Mesmerizing
-Personality: LOADING...
-""",
-        f"""
-💕 BEAUTY PROFILE
-━━━━━━━━━━━━━━
-Name: {girl_name}
-Smile: ⭐⭐⭐⭐⭐ Perfect
-Eyes: 😍 Mesmerizing
-Personality: 💎 Diamond
-Status: LOADING...
-""",
-        f"""
-💕 BEAUTY PROFILE
-━━━━━━━━━━━━━━
-Name: {girl_name}
-Smile: ⭐⭐⭐⭐⭐ Perfect
-Eyes: 😍 Mesmerizing
-Personality: 💎 Diamond
-Status: 👑 QUEEN 👑
-"""
+        f"💕 BEAUTY PROFILE\n━━━━━━━━━━━━━━\nName: {girl_name}\nSmile: LOADING...",
+        f"💕 BEAUTY PROFILE\n━━━━━━━━━━━━━━\nName: {girl_name}\nSmile: ⭐⭐⭐⭐⭐ Perfect\nEyes: LOADING...",
+        f"💕 BEAUTY PROFILE\n━━━━━━━━━━━━━━\nName: {girl_name}\nSmile: ⭐⭐⭐⭐⭐ Perfect\nEyes: 😍 Mesmerizing\nPersonality: LOADING...",
+        f"💕 BEAUTY PROFILE\n━━━━━━━━━━━━━━\nName: {girl_name}\nSmile: ⭐⭐⭐⭐⭐ Perfect\nEyes: 😍 Mesmerizing\nPersonality: 💎 Diamond\nStatus: LOADING...",
+        f"💕 BEAUTY PROFILE\n━━━━━━━━━━━━━━\nName: {girl_name}\nSmile: ⭐⭐⭐⭐⭐ Perfect\nEyes: 😍 Mesmerizing\nPersonality: 💎 Diamond\nStatus: 👑 QUEEN 👑"
     ]
-    
+
     for frame in stats_animation:
         await asyncio.sleep(0.5)
-        await msg.edit(frame)
-    
+        try:
+            await msg.edit(frame)
+        except:
+            pass
+
     await asyncio.sleep(0.8)
-    
+
     # STAGE 7: Rose Animation
     rose_animation = [
         "🌹",
@@ -163,91 +129,53 @@ Status: 👑 QUEEN 👑
         "🌹🌹🌹",
         "🌹🌹🌹🌹",
         "🌹🌹🌹🌹🌹",
-        f"""
-🌹🌹🌹🌹🌹🌹🌹
-
-   For {girl_name}
-   
-🌹🌹🌹🌹🌹🌹🌹
-""",
+        f"🌹🌹🌹🌹🌹🌹🌹\n\n   For {girl_name}\n   \n🌹🌹🌹🌹🌹🌹🌹",
     ]
-    
+
     for frame in rose_animation:
         await asyncio.sleep(0.3)
-        await msg.edit(frame)
-    
+        try:
+            await msg.edit(frame)
+        except:
+            pass
+
     await asyncio.sleep(0.7)
-    
+
     # STAGE 8: Romantic Quotes Slideshow
     quotes = [
-        f"""
-💌 Dear {girl_name},
-
-"तेरी हंसी में वो जादू है,
-जो दिल को चैन ना आने दे..." 
-
-✨ - RISHANT THAKUR ✨
-""",
-        f"""
-💌 Dear {girl_name},
-
-"तेरी आँखों में खो जाऊं,
-बस यही ख्वाहिश है मेरी..." 
-
-✨ - RISHANT THAKUR ✨
-""",
-        f"""
-💌 Dear {girl_name},
-
-"तू चाँद है, तारे हैं,
-मेरी दुनिया तू ही है..." 
-
-✨ - RISHANT THAKUR ✨
-""",
+        f"💌 Dear {girl_name},\n\n\"तेरी हंसी में वो जादू है,\nजो दिल को चैन ना आने दे...\" \n\n✨ - RISHANT THAKUR ✨",
+        f"💌 Dear {girl_name},\n\n\"तेरी आँखों में खो जाऊं,\nबस यही ख्वाहिश है मेरी...\" \n\n✨ - RISHANT THAKUR ✨",
+        f"💌 Dear {girl_name},\n\n\"तू चाँद है, तारे हैं,\nमेरी दुनिया तू ही है...\" \n\n✨ - RISHANT THAKUR ✨",
     ]
-    
+
     for quote in quotes:
         await asyncio.sleep(0.8)
-        await msg.edit(quote)
-    
+        try:
+            await msg.edit(quote)
+        except:
+            pass
+
     await asyncio.sleep(1)
-    
+
     # STAGE 9: Cupid's Arrow
     arrow_animation = [
-        """
-        💘
-        
-    Cupid's Arrow
-    Loading...
-""",
-        """
-      💘  →
-        
-    Taking Aim...
-""",
-        """
-    💘    →  →
-        
-    Locked On Target!
-""",
-        f"""
-💘  →  →  →  💖
-
-   HIT! {girl_name}'s Heart!
-   
-   ❤️‍🔥 LOVE ATTACK! ❤️‍🔥
-""",
+        "💘\n\nCupid's Arrow\nLoading...",
+        "💘  →\n\nTaking Aim...",
+        "💘    →  →\n\nLocked On Target!",
+        f"💘  →  →  →  💖\n\nHIT! {girl_name}'s Heart!\n\n❤️‍🔥 LOVE ATTACK! ❤️‍🔥",
     ]
-    
+
     for frame in arrow_animation:
         await asyncio.sleep(0.5)
-        await msg.edit(frame)
-    
+        try:
+            await msg.edit(frame)
+        except:
+            pass
+
     await asyncio.sleep(0.8)
-    
-    # STAGE 10: Love Letter ASCII
-    love_letter = f"""
-┌────────────────────────┐
+
+    # STAGE 10: Love Letter
+    love_letter = f"""┌────────────────────────┐
 │  ✉️ LOVE LETTER ✉️  │
 └────────────────────────┘
 
@@ -264,40 +192,34 @@ Status: 👑 QUEEN 👑
 With Love,
 RISHANT THAKUR 👑
 
-━━━━━━━━━━━━━━━━━━━━
-"""
-    
-    await msg.edit(love_letter)
+━━━━━━━━━━━━━━━━━━━━"""
+
+    try:
+        await msg.edit(love_letter)
+    except:
+        pass
     await asyncio.sleep(2)
-    
+
     # STAGE 11: Sparkling Hearts
     sparkle_frames = [
         "✨",
         "✨💖✨",
         "✨💖✨💖✨",
-        f"""
-✨✨✨✨✨✨✨
-
-    {girl_name}
-    
-  You're Special!
-  
-✨✨✨✨✨✨✨
-""",
+        f"✨✨✨✨✨✨✨\n\n{girl_name}\n\nYou're Special!\n\n✨✨✨✨✨✨✨",
     ]
-    
+
     for frame in sparkle_frames:
         await asyncio.sleep(0.4)
-        await msg.edit(frame)
-    
+        try:
+            await msg.edit(frame)
+        except:
+            pass
+
     await asyncio.sleep(0.8)
-    
+
     # STAGE 12: FINAL GRAND REVEAL
-    final_message = f"""
-╔══════════════════════════════╗
-║                              ║
-║    💖 LOVE DECLARATION 💖    ║
-║                              ║
+    final_message = f"""╔══════════════════════════════╗
+║   💖 LOVE DECLARATION 💖    ║
 ╚══════════════════════════════╝
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -305,13 +227,9 @@ RISHANT THAKUR 👑
 👸 Princess: {girl_name}
 
 🌟 Beauty Level: ∞ INFINITE
-
 😍 Charm: IRRESISTIBLE
-
 💎 Value: PRICELESS
-
 ✨ Aura: MAGICAL
-
 ❤️ Effect on Heart: DEVASTATING
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -327,25 +245,21 @@ RISHANT THAKUR 👑
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🎭 Bollywood Style Proposal:
-"Kuch Kuch Hota Hai {girl_name},
-Tum Nahi Samjhogi!" 💓
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 👑 From: RISHANT THAKUR
 💕 To: {girl_name}
 🌹 With: Pure Love
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-💖 WILL YOU BE MINE? 💖
-"""
-    
-    await msg.edit(final_message)
-    
+💖 WILL YOU BE MINE? 💖"""
+
+    try:
+        await msg.edit(final_message)
+    except:
+        pass
+
     await asyncio.sleep(2)
-    
+
     # STAGE 13: Romantic Spam Burst
     romantic_messages = [
         f"💕 {girl_name}, तू बेहद खूबसूरत है! 💕",
@@ -357,15 +271,18 @@ Tum Nahi Samjhogi!" 💓
         f"🌟 {girl_name}, तू एक star है! 🌟",
         f"❤️ {girl_name}, I LOVE YOU! ❤️"
     ]
-    
+
     for romantic_msg in romantic_messages:
-        await event.respond(romantic_msg)
-        await asyncio.sleep(0.3)
-    
+        try:
+            await event.respond(romantic_msg)
+            await asyncio.sleep(0.3)
+        except:
+            pass
+
     # STAGE 14: Grand Finale
     await asyncio.sleep(0.5)
-    await event.respond(f"""
-╔════════════════════════════════╗
+    try:
+        await event.respond(f"""╔════════════════════════════════╗
 ║  🌹🌹🌹🌹🌹🌹🌹🌹🌹  ║
 ║                                ║
 ║     💖 {girl_name} 💖        ║
@@ -377,13 +294,13 @@ Tum Nahi Samjhogi!" 💓
 ║  🌹🌹🌹🌹🌹🌹🌹🌹🌹  ║
 ╚════════════════════════════════╝
 
-💕 BE MINE FOREVER! 💕
-""")
-    
+💕 BE MINE FOREVER! 💕""")
+    except:
+        pass
+
     # BONUS: Heart Rain
     await asyncio.sleep(0.7)
-    heart_rain = """
-💖     💕     💗     💓
+    heart_rain = f"""💖     💕     💗     💓
    💝     💘     💞
 💖     💕     💗     💓
    💝     💘     💞
@@ -391,6 +308,21 @@ Tum Nahi Samjhogi!" 💓
 
     {girl_name}
     
-  YOU'RE AMAZING! ✨
-"""
-    await event.respond(heart_rain.replace("{girl_name}", girl_name))
+  YOU'RE AMAZING! ✨"""
+  
+    try:
+        await event.respond(heart_rain)
+    except:
+        pass
+
+# Register handlers for all clients
+X1.on(events.NewMessage(incoming=True, pattern=r"^\.love$"))(love_handler)
+X2.on(events.NewMessage(incoming=True, pattern=r"^\.love$"))(love_handler)
+X3.on(events.NewMessage(incoming=True, pattern=r"^\.love$"))(love_handler)
+X4.on(events.NewMessage(incoming=True, pattern=r"^\.love$"))(love_handler)
+X5.on(events.NewMessage(incoming=True, pattern=r"^\.love$"))(love_handler)
+X6.on(events.NewMessage(incoming=True, pattern=r"^\.love$"))(love_handler)
+X7.on(events.NewMessage(incoming=True, pattern=r"^\.love$"))(love_handler)
+X8.on(events.NewMessage(incoming=True, pattern=r"^\.love$"))(love_handler)
+X9.on(events.NewMessage(incoming=True, pattern=r"^\.love$"))(love_handler)
+X10.on(events.NewMessage(incoming=True, pattern=r"^\.love$"))(love_handler)
