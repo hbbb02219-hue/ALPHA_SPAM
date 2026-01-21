@@ -3,7 +3,7 @@ from telethon import events, Button
 from config import X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, SUDO_USERS, CMD_HNDLR as hl
 
 
-HELP_STRING = f"★ 𝗔𝗟𝗣𝗛𝗔 𝗛𝗘𝗟𝗣 𝗠𝗘𝗡𝗨 ★\n\n» **ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴꜱ ꜰᴏʀ ʜᴇʟᴘ**\n» **ᴅᴇᴠᴇʟᴏᴘᴇʀ: @ll_ALPHA_BABY_lll**"
+HELP_STRING = f"★ ʜɪɴᴅᴜ ᴄᴏᴍᴍᴜɴɪᴛʏ ™ 𝗛𝗘𝗟𝗣 𝗠𝗘𝗡𝗨 ★\n\n» **ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴꜱ ꜰᴏʀ ʜᴇʟᴘ**\n» **ᴅᴇᴠᴇʟᴏᴘᴇʀ: @ganaasupport**"
 
 HELP_BUTTON = [
     [
@@ -14,8 +14,8 @@ HELP_BUTTON = [
       Button.inline("• ᴇxᴛʀᴀ •", data="extra")
     ],
     [
-      Button.url("• ᴄʜᴀɴɴᴇʟ •", "https://t.me/WORLD_ALPHA"),
-      Button.url("• sᴜᴘᴘᴏʀᴛ •", "https://t.me/+Q25anL0Ckuk5NzM1")
+      Button.url("• ᴄʜᴀɴɴᴇʟ •", "https://t.me/ganaasupport"),
+      Button.url("• sᴜᴘᴘᴏʀᴛ •", "https://t.me/ganaasupport")
     ]
   ]
 
@@ -60,7 +60,7 @@ extra_msg = f"""
   2) {hl}leave : Type in the Group bot will auto leave that group
 
 
-**© @ll_ALPHA_BABY_lll**
+**© @ganaasupport**
 """
 
                  
@@ -136,8 +136,8 @@ async def helpback(event):
                 Button.inline("• ᴇxᴛʀᴀ •", data="extra")
               ],
               [
-                Button.url("• ᴄʜᴀɴɴᴇʟ •", "https://t.me/WORLD_ALPHA"),
-                Button.url("• sᴜᴘᴘᴏʀᴛ •", "https://t.me/+Q25anL0Ckuk5NzM1")
+                Button.url("• ᴄʜᴀɴɴᴇʟ •", "https://t.me/ganaasupport"),
+                Button.url("• sᴜᴘᴘᴏʀᴛ •", "https://t.me/ganaasupport")
               ]
             ]
           )
