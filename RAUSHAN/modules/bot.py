@@ -24,7 +24,7 @@ async def ping(e):
         altron = await e.reply(f"•[ ʜɪɴᴅᴜ ᴄᴏᴍᴍᴜɴɪᴛʏ ™ ]•")
         end = datetime.now()
         mp = (end - start).microseconds / 1000
-        await altron.edit(f"[🍹] ʜɪɴᴅᴜ ᴄᴏᴍᴍᴜɴɪᴛʏ ™ ᴘαᴘα ɪѕ нєʀє\n[🏓] αвє αв тєʀα куα нσgα\n[⚡] кιѕкι ᴄнυ∂αι кαʀиι нαι\n\n➜ `{mp} ms`")
+        await altron.edit(f"[🍹] ʜɪɴᴅᴜ ᴄᴏᴍᴍᴜɴɪᴛʏ ™ ᴘαᴘα ɪѕ нєʀє\n\n➜ `{mp} ms`")
 
 
 @X1.on(events.NewMessage(incoming=True, pattern=r"\%sreboot(?: |$)(.*)" % hl))
@@ -39,50 +39,11 @@ async def ping(e):
 @X10.on(events.NewMessage(incoming=True, pattern=r"\%sreboot(?: |$)(.*)" % hl))
 async def restart(e):
     if e.sender_id in SUDO_USERS:
-        await e.reply(f"ʀєвσσт ᴅσиє\n[🍷] 2 мιит ωαιт ᴘℓєαѕє\n[🫧] fιʀ ααʏєɢα тєʀɪ мᴀᴀ ᴄнσᴅиє ʜɪɴᴅᴜ ᴄᴏᴍᴍᴜɴɪᴛʏ ™ ʙᴀʙʏ ")
-        try:
-            await X1.disconnect()
-        except Exception:
-            pass
-        try:
-            await X2.disconnect()
-        except Exception:
-            pass
-        try:
-            await X3.disconnect()
-        except Exception:
-            pass
-        try:
-            await X4.disconnect()
-        except Exception:
-            pass
-        try:
-            await X5.disconnect()
-        except Exception:
-            pass
-        try:
-            await X6.disconnect()
-        except Exception:
-            pass
-        try:
-            await X7.disconnect()
-        except Exception:
-            pass
-        try:
-            await X8.disconnect()
-        except Exception:
-            pass
-        try:
-            await X9.disconnect()
-        except Exception:
-            pass
-        try:
-            await X10.disconnect()
-        except Exception:
-            pass
-
+        await e.reply("♻️ Rebooting...")
         execl(sys.executable, sys.executable, *sys.argv)
 
+
+# ===================== FIXED SUDO ===================== #
 
 @X1.on(events.NewMessage(incoming=True, pattern=r"\%ssudo(?: |$)(.*)" % hl))
 @X2.on(events.NewMessage(incoming=True, pattern=r"\%ssudo(?: |$)(.*)" % hl))
@@ -95,36 +56,26 @@ async def restart(e):
 @X9.on(events.NewMessage(incoming=True, pattern=r"\%ssudo(?: |$)(.*)" % hl))
 @X10.on(events.NewMessage(incoming=True, pattern=r"\%ssudo(?: |$)(.*)" % hl))
 async def addsudo(event):
-    if event.sender_id == OWNER_ID:
-        Heroku = heroku3.from_key(HEROKU_API_KEY)
-        sudousers = getenv("SUDO_USERS", default=None)
+    if event.sender_id != OWNER_ID:
+        return await event.reply("» Only owner can use this command")
 
-        ok = await event.reply(f"»🍃 ʜɪɴᴅᴜ ᴄᴏᴍᴍᴜɴɪᴛʏ ™ ᴋᴀ єк σʀ иєω вєтα αᴅᴅ нσ gуα 🍃")
-        target = ""
-        if HEROKU_APP_NAME is not None:
-            app = Heroku.app(HEROKU_APP_NAME)
-        else:
-            await ok.edit("`[HEROKU]:" "\nPlease Setup Your` **HEROKU_APP_NAME**")
-            return
-        heroku_var = app.config()
-        if event is None:
-            return
-        try:
-            reply_msg = await event.get_reply_message()
-            target = reply_msg.sender_id
-        except:
-            await ok.edit("αвє ᴊʜᴀᴛ кє вααℓ υραʀ ѕє ʀєᴘℓу ᴅє ʀαнα нαι вααᴘ кσ")
-            return
+    sudousers = getenv("SUDO_USERS", "")
+    sudo_list = sudousers.split() if sudousers else []
 
-        if str(target) in sudousers:
-            await ok.edit(f"ᴛʜɪꜱ ᴜꜱᴇʀ ɪꜱ ᴀʟʀᴇᴀᴅʏ ᴀ ꜱᴜᴅᴏ ᴜꜱᴇʀ !!")
-        else:
-            if len(sudousers) > 0:
-                newsudo = f"{sudousers} {target}"
-            else:
-                newsudo = f"{target}"
-            await ok.edit(f"» σує нσує мєʀα ᴄυтє вαᴄнα\n:⧽ `{target}`\n:⧽ `ωєℓᴄσмє тσ ᴀʟᴘʜᴀ ѕραм`")
-            heroku_var["SUDO_USERS"] = newsudo    
-    
-    elif event.sender_id in SUDO_USERS:
-        await event.reply("» ꜱᴏʀʀʏ, ᴏɴʟʏ ᴏᴡɴᴇʀ ᴄᴀɴ ᴀᴄᴄᴇꜱꜱ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ.")
+    reply = await event.get_reply_message()
+    if not reply:
+        return await event.reply("» Reply to a user")
+
+    target = reply.sender_id
+
+    if str(target) in sudo_list:
+        return await event.reply("» User already sudo")
+
+    Heroku = heroku3.from_key(HEROKU_API_KEY)
+    app = Heroku.app(HEROKU_APP_NAME)
+    heroku_var = app.config()
+
+    sudo_list.append(str(target))
+    heroku_var["SUDO_USERS"] = " ".join(sudo_list)
+
+    await event.reply(f"✅ Sudo added successfully\n`{target}`\nRestarting…")
