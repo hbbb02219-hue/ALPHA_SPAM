@@ -4,7 +4,6 @@ import asyncio
 import random
 
 BOSS_MESSAGES = [
-    # Devil Style
     "😈 𝗥𝗜𝗦𝗛𝗔𝗡𝗧 𝗧𝗛𝗔𝗞𝗨𝗥 😈\n👿 THE DEVIL HIMSELF 👿",
     "☠️ ℝ𝕀𝕊ℍ𝔸ℕ𝕋 𝕋ℍ𝔸𝕂𝕌ℝ ☠️\n💀 DANGER ZONE 💀",
     "🔥 𝑹𝑰𝑺𝑯𝑨𝑵𝑻 𝑻𝑯𝑨𝑲𝑼𝑹 🔥\n🌋 HELL'S KING 🌋",
@@ -41,47 +40,55 @@ BOSS_MESSAGES = [
 
 async def boss_handler(event):
     """Main handler for .boss command"""
+    # Check if sender is in SUDO_USERS
     if event.sender_id not in SUDO_USERS:
         return
 
     try:
         # Parse counter from command
         parts = event.text.split()
+        counter = 40  # Default
+        
         if len(parts) > 1:
-            counter = int(parts[1])
-        else:
-            counter = 40  # Default
-    except (IndexError, ValueError):
-        counter = 40
+            try:
+                counter = int(parts[1])
+                # Limit to prevent abuse
+                if counter > 100:
+                    counter = 100
+            except ValueError:
+                counter = 40
 
-    await event.delete()
+        # Delete the command message
+        await event.delete()
 
-    # Epic Entry
-    try:
-        await event.respond("🚨 **WARNING! DEVIL IS COMING** 🚨")
+        # Epic Entry
+        entry1 = await event.respond("🚨 **WARNING! DEVIL IS COMING** 🚨")
         await asyncio.sleep(1)
-        await event.respond("😈 **RISHANT THAKUR ENTERING...** 😈")
+        
+        entry2 = await event.respond("😈 **RISHANT THAKUR ENTERING...** 😈")
         await asyncio.sleep(1)
-        await event.respond("💥 **BOSS MODE ACTIVATED!** 💥")
+        
+        entry3 = await event.respond("💥 **BOSS MODE ACTIVATED!** 💥")
         await asyncio.sleep(1)
 
-        # Send messages
+        # Delete entry messages
+        await entry1.delete()
+        await entry2.delete()
+        await entry3.delete()
+
+        # Send boss messages
         for i in range(counter):
             msg = random.choice(BOSS_MESSAGES)
             await event.respond(msg)
             await asyncio.sleep(0.5)
-            
+
     except Exception as e:
         print(f"Error in boss command: {e}")
+        await event.respond(f"❌ Error: {str(e)}")
 
-# Register handlers for all clients
-X1.on(events.NewMessage(incoming=True, pattern=r"^\.boss(\s+\d+)?$"))(boss_handler)
-X2.on(events.NewMessage(incoming=True, pattern=r"^\.boss(\s+\d+)?$"))(boss_handler)
-X3.on(events.NewMessage(incoming=True, pattern=r"^\.boss(\s+\d+)?$"))(boss_handler)
-X4.on(events.NewMessage(incoming=True, pattern=r"^\.boss(\s+\d+)?$"))(boss_handler)
-X5.on(events.NewMessage(incoming=True, pattern=r"^\.boss(\s+\d+)?$"))(boss_handler)
-X6.on(events.NewMessage(incoming=True, pattern=r"^\.boss(\s+\d+)?$"))(boss_handler)
-X7.on(events.NewMessage(incoming=True, pattern=r"^\.boss(\s+\d+)?$"))(boss_handler)
-X8.on(events.NewMessage(incoming=True, pattern=r"^\.boss(\s+\d+)?$"))(boss_handler)
-X9.on(events.NewMessage(incoming=True, pattern=r"^\.boss(\s+\d+)?$"))(boss_handler)
-X10.on(events.NewMessage(incoming=True, pattern=r"^\.boss(\s+\d+)?$"))(boss_handler)
+# Register handlers - USE OUTGOING=True for your own messages
+for client in [X1, X2, X3, X4, X5, X6, X7, X8, X9, X10]:
+    client.add_event_handler(
+        boss_handler,
+        events.NewMessage(outgoing=True, pattern=r'^\.boss(\s+\d+)?$')
+    )
