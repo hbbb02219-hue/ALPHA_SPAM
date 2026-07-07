@@ -27,7 +27,7 @@ async def echo(event):
             user_id = reply_msg.sender_id
 
             if user_id in ALTRON:
-                await event.reply("ɴᴏ, ᴛʜɪꜱ ɢᴜʏ ɪꜱ ᴀʟᴛʀᴏɴ'ꜱ ᴏᴡɴᴇʀ.")
+                await event.reply("𝗖𝗛𝗨𝗣 𝗠𝗔𝗗𝗛𝗥𝗖𝗛𝗢𝗗 𝗬𝗘 𝗠𝗘𝗥𝗔 𝗢𝗪𝗡𝗘𝗥 𝗛𝗔𝗜.")
             elif user_id == OWNER_ID:
                 await event.reply("ɴᴏ, ᴛʜɪꜱ ɢᴜʏ ɪꜱ ᴏᴡɴᴇʀ ᴏꜰ ᴛʜᴇꜱᴇ ʙᴏᴛꜱ.")
             elif user_id in SUDO_USERS:
