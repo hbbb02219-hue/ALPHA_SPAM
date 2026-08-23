@@ -57,7 +57,7 @@ async def start(event):
         f"`{__version__}`\n"
 
         f"━━━━━━━━━━━━━━━━━━━\n"
-        f"✨ **ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴀʟᴘʜᴀ sᴘᴀᴍ**"
+        f"✨ **ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ hindu sᴘᴀᴍ**"
     )
 
     await event.client.send_file(
