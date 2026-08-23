@@ -22,11 +22,11 @@ def theme_message(text, color="info"):
     emoji = COLORS.get(color, COLORS["info"])
 
     return (
-        f"{emoji} **ALPHA • {color.upper()}**\n"
+        f"{emoji} **rishant • {color.upper()}**\n"
         f"━━━━━━━━━━━━━━━━━━\n\n"
         f"{text}\n\n"
         f"━━━━━━━━━━━━━━━━━━\n"
-        f"✨ **ALPHA SPAM**"
+        f"✨ **rishant SPAM**"
     )
 
 
